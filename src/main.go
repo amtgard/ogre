@@ -22,6 +22,7 @@ func main() {
 
 	router.HandleFunc("/players", playerList).Methods("GET")
 	router.HandleFunc("/player/{id:[0-9]+}", playerShow).Methods("GET")
+	router.HandleFunc("/player/{id:[0-9]+}/classes", playerClassesShow).Methods("GET")
 
 	fmt.Println("OGRE is online!")
 	log.Fatal(http.ListenAndServe(":3736", router))

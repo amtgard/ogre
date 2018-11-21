@@ -12,6 +12,9 @@ Available routes:
 
 `GET /player/111`: Returns a JSON object for the player with ID #111.
 
+`GET /player/111/classes`: Returns a JSON array of class information
+for the player with ID #111.
+
 ### Kingdom Data
 
 `GET /kingdoms`: Returns a JSON array of every kingdom in the system.
