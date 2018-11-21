@@ -9,6 +9,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// Player is an Amtgard player
 type Player struct {
 	ID                  int            `db:"mundane_id"`
 	GivenName           string         `db:"given_name"`

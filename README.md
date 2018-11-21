@@ -8,15 +8,18 @@ Available routes:
 
 ### Player Data
 
-`GET /players`: Returns a JSON list of every player in the system.
+`GET /players`: Returns a JSON array of every player in the system.
 
 `GET /player/111`: Returns a JSON object for the player with ID #111.
 
 ### Kingdom Data
 
-`GET /kingdoms`: Returns a JSON list of every kingdom in the system.
+`GET /kingdoms`: Returns a JSON array of every kingdom in the system.
 
 `GET /kingdom/111`: Returns a JSON object for the kingdom with ID #111.
+
+`GET /kingdom/111/events`: Returns a JSON array of upcoming events for a 
+kingdom with ID #111.
 
 ## Getting Set Up for Development
 
