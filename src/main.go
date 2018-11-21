@@ -18,6 +18,7 @@ func main() {
 	router.HandleFunc("/kingdoms", kingdomList).Methods("GET")
 	router.HandleFunc("/kingdom/{id:[0-9]+}", kingdomShow).Methods("GET")
 	router.HandleFunc("/kingdom/{id:[0-9]+}/events", kingdomEventsShow).Methods("GET")
+	router.HandleFunc("/kingdom/{id:[0-9]+}/officers", kingdomOfficersShow).Methods("GET")
 
 	router.HandleFunc("/players", playerList).Methods("GET")
 	router.HandleFunc("/player/{id:[0-9]+}", playerShow).Methods("GET")

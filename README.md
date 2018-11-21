@@ -21,6 +21,9 @@ Available routes:
 `GET /kingdom/111/events`: Returns a JSON array of upcoming events for a 
 kingdom with ID #111.
 
+`GET /kingdom/111/officers`: Returns a JSON array of officers for a 
+kingdom with ID #111.
+
 ## Getting Set Up for Development
 
 This assumes you already have Go installed, and this repository checked out

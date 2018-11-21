@@ -39,6 +39,29 @@ type Event struct {
 	ShortDescription      string         `db:"short_description"`
 }
 
+// Officer is an Amtgard officer
+type Officer struct {
+	AuthorizationID sql.NullInt64  `db:"authorization_id"`
+	ParkID          sql.NullInt64  `db:"park_id"`
+	KingdomID       sql.NullInt64  `db:"kingdom_id"`
+	EventID         sql.NullInt64  `db:"event_id"`
+	UnitID          sql.NullInt64  `db:"unit_id"`
+	Role            sql.NullString `db:"role"`
+	Modified        sql.NullString `db:"modified"`
+	ParkName        sql.NullString `db:"park_name"`
+	KingdomName     sql.NullString `db:"kingdom_name"`
+	EventName       sql.NullString `db:"event_name"`
+	UnitName        sql.NullString `db:"unit_name"`
+	Username        string         `db:"username"`
+	GivenName       string         `db:"given_name"`
+	Surname         string         `db:"surname"`
+	Persona         string         `db:"persona"`
+	Restricted      bool           `db:"restricted"`
+	MundaneID       sql.NullInt64  `db:"mundane_id"`
+	OfficerRole     string         `db:"officer_role"`
+	OfficerID       int            `db:"officer_id"`
+}
+
 func kingdomList(w http.ResponseWriter, r *http.Request) {
 	kingdoms := []Kingdom{}
 
@@ -112,4 +135,45 @@ func kingdomEventsShow(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json.NewEncoder(w).Encode(events)
+}
+
+func kingdomOfficersShow(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	officers := []Officer{}
+
+	sql := `
+	SELECT
+	a.*,
+	p.name AS park_name,
+	k.name AS kingdom_name,
+	e.name AS event_name,
+	u.name AS unit_name,
+	m.username,
+	m.given_name,
+	m.surname,
+	m.persona,
+	m.restricted,
+	m.mundane_id,
+	o.role AS officer_role,
+	o.officer_id
+	FROM ork_officer o
+	LEFT JOIN ork_mundane m ON o.mundane_id = m.mundane_id
+	LEFT JOIN ork_authorization a ON a.authorization_id = o.authorization_id
+	LEFT JOIN ork_park p ON a.park_id = p.park_id
+	LEFT JOIN ork_kingdom k ON a.kingdom_id = k.kingdom_id
+	LEFT JOIN ork_event e ON a.event_id = e.event_id
+	LEFT JOIN ork_unit u ON a.unit_id = u.unit_id
+	WHERE o.kingdom_id = ?
+	AND o.park_id = 0`
+
+	db := dbInit()
+
+	err := db.Select(&officers, sql, id)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	json.NewEncoder(w).Encode(officers)
 }
