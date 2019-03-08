@@ -29,15 +29,7 @@ kingdom with ID #111.
 
 ## Getting Set Up for Development
 
-This assumes you already have Go installed, and this repository checked out
-at `~/go/src/github.com/amtgard/ogre`.
-
-### Dependencies
-
-OGRE uses `dep` for dependency management.
-
-1. Install `dep` with `go get -u github.com/golang/dep/cmd/dep`.
-2. Run `dep ensure` in this directory to pull down dependencies.
+This assumes you already have Go 1.11 or later installed.
 
 ### MySQL
 
@@ -72,8 +64,11 @@ OGRE_DB_USERNAME=ogre \
 OGRE_DB_PASSWORD=supersecurepassword \
 OGRE_DB_HOSTNAME= \
 OGRE_DB_NAME=ogre \
-go run src/*.go
+go run *.go
 ```
 
 This will fire up the API running on port 3736. Note that all configuration is
 done with environment variables.
+
+When you're ready to build, just run `go build` in the root directory. It will create a binary
+named `ogre`.
