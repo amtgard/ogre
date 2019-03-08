@@ -6,7 +6,7 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.11
-    working_directory: /go/src/github.com/amtgard/ogre
+    working_directory: /ogre
     steps:
       - checkout
       - run: go build
