@@ -6,10 +6,11 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.11
-    working_directory: /ogre
+    working_directory: /go/src/github.com/amtgard/ogre
     steps:
       - checkout
-      - run: go build
+      - run: go get -v -t -d ./...
+      - run: go test -v ./...
       - setup_remote_docker:
           docker_layer_caching: true
       - run: |
