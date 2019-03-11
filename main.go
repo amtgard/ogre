@@ -33,6 +33,9 @@ func main() {
 	router.Get("/player/{playerID:[0-9]+}", playerShow)
 	router.Get("/player/{playerID:[0-9]+}/classes", playerClassesShow)
 
+	router.Get("/parks", parkList)
+	router.Get("/park/{parkID:[0-9]+}", parkShow)
+
 	fmt.Println("OGRE is online!")
 	log.Fatal(http.ListenAndServe(":3736", router))
 }

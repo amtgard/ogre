@@ -6,7 +6,25 @@ Online Game Record Engine API - a version of the ORK API built on Go.
 
 Available routes:
 
-### Player Data
+### Kingdoms
+
+`GET /kingdoms`: Returns a JSON array of every kingdom in the system.
+
+`GET /kingdom/111`: Returns a JSON object for the kingdom with ID #111.
+
+`GET /kingdom/111/events`: Returns a JSON array of upcoming events for a
+kingdom with ID #111.
+
+`GET /kingdom/111/officers`: Returns a JSON array of officers for a
+kingdom with ID #111.
+
+### Parks
+
+`GET /parks`: Returns a JSON array of every park in the system.
+
+`GET /park/111`: Returns a JSON object for the park with ID #111.
+
+### Players
 
 `GET /players`: Returns a JSON array of every player in the system.
 
@@ -14,18 +32,6 @@ Available routes:
 
 `GET /player/111/classes`: Returns a JSON array of class information
 for the player with ID #111.
-
-### Kingdom Data
-
-`GET /kingdoms`: Returns a JSON array of every kingdom in the system.
-
-`GET /kingdom/111`: Returns a JSON object for the kingdom with ID #111.
-
-`GET /kingdom/111/events`: Returns a JSON array of upcoming events for a 
-kingdom with ID #111.
-
-`GET /kingdom/111/officers`: Returns a JSON array of officers for a 
-kingdom with ID #111.
 
 ## Getting Set Up for Development
 
