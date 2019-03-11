@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gorilla/mux"
+	"github.com/go-chi/chi"
 )
 
 // PlayerClass is Amtgard class information for a player
@@ -70,8 +70,7 @@ func playerList(w http.ResponseWriter, r *http.Request) {
 }
 
 func playerShow(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id := vars["id"]
+	id := chi.URLParam(r, "playerID")
 	player := Player{}
 
 	db := dbInit()
@@ -86,8 +85,7 @@ func playerShow(w http.ResponseWriter, r *http.Request) {
 }
 
 func playerClassesShow(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id := vars["id"]
+	id := chi.URLParam(r, "playerID")
 	classes := []PlayerClass{}
 
 	sql := `

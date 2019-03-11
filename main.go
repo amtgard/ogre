@@ -5,24 +5,33 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/gorilla/mux"
 )
 
 func main() {
-	var router = mux.NewRouter()
+	router := chi.NewRouter()
 
-	router.HandleFunc("/healthcheck", healthCheck).Methods("GET")
+	router.Use(middleware.RequestID)
+	router.Use(middleware.RealIP)
+	router.Use(middleware.Logger)
+	router.Use(middleware.Recoverer)
 
-	router.HandleFunc("/kingdoms", kingdomList).Methods("GET")
-	router.HandleFunc("/kingdom/{id:[0-9]+}", kingdomShow).Methods("GET")
-	router.HandleFunc("/kingdom/{id:[0-9]+}/events", kingdomEventsShow).Methods("GET")
-	router.HandleFunc("/kingdom/{id:[0-9]+}/officers", kingdomOfficersShow).Methods("GET")
+	router.Use(middleware.Timeout(60 * time.Second))
 
-	router.HandleFunc("/players", playerList).Methods("GET")
-	router.HandleFunc("/player/{id:[0-9]+}", playerShow).Methods("GET")
-	router.HandleFunc("/player/{id:[0-9]+}/classes", playerClassesShow).Methods("GET")
+	router.Get("/healthcheck", healthCheck)
+
+	router.Get("/kingdoms", kingdomList)
+	router.Get("/kingdom/{kingdomID:[0-9]+}", kingdomShow)
+	router.Get("/kingdom/{kingdomID:[0-9]+}/events", kingdomEventsShow)
+	router.Get("/kingdom/{kingdomID:[0-9]+}/officers", kingdomOfficersShow)
+
+	router.Get("/players", playerList)
+	router.Get("/player/{playerID:[0-9]+}", playerShow)
+	router.Get("/player/{playerID:[0-9]+}/classes", playerClassesShow)
 
 	fmt.Println("OGRE is online!")
 	log.Fatal(http.ListenAndServe(":3736", router))

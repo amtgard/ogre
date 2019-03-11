@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gorilla/mux"
+	"github.com/go-chi/chi"
 )
 
 // Kingdom is an Amtgard kingdom
@@ -77,8 +77,7 @@ func kingdomList(w http.ResponseWriter, r *http.Request) {
 }
 
 func kingdomShow(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id := vars["id"]
+	id := chi.URLParam(r, "kingdomID")
 	kingdom := Kingdom{}
 
 	db := dbInit()
@@ -93,8 +92,7 @@ func kingdomShow(w http.ResponseWriter, r *http.Request) {
 }
 
 func kingdomEventsShow(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id := vars["id"]
+	id := chi.URLParam(r, "kingdomID")
 	events := []Event{}
 
 	sql := `
@@ -138,8 +136,7 @@ func kingdomEventsShow(w http.ResponseWriter, r *http.Request) {
 }
 
 func kingdomOfficersShow(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	id := vars["id"]
+	id := chi.URLParam(r, "kingdomID")
 	officers := []Officer{}
 
 	sql := `

@@ -31,6 +31,9 @@ kingdom with ID #111.
 
 This assumes you already have Go 1.11 or later installed.
 
+You can either run it via Docker using the included `docker-compose.yml` file,
+or you can run MySQL on your PC directly.
+
 ### MySQL
 
 For development, you'll need a MySQL database running somewhere accessible.
